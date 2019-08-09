@@ -122,16 +122,13 @@ Java_com_major_demo_MainActivity_blurBitmap(JNIEnv *env, jclass obj, jobject bit
     AndroidBitmapInfo infoIn;
     void *pixels;
 
-    AndroidBitmap_getInfo(env, bitmapIn, &infoIn);
-
     // 获取bitmap的信息
     if (AndroidBitmap_getInfo(env, bitmapIn, &infoIn) != ANDROID_BITMAP_RESULT_SUCCESS) {
         LOGD("AndroidBitmap_getInfo failed!");
         return;
     }
     // 检测bitmap是不是这两种格式，因为算法中只有对这两种图片会做处理
-    if (infoIn.format != ANDROID_BITMAP_FORMAT_RGBA_8888 &&
-        infoIn.format != ANDROID_BITMAP_FORMAT_RGB_565) {
+    if (infoIn.format != ANDROID_BITMAP_FORMAT_RGBA_8888 && infoIn.format != ANDROID_BITMAP_FORMAT_RGB_565) {
         LOGD("Only support ANDROID_BITMAP_FORMAT_RGBA_8888 and ANDROID_BITMAP_FORMAT_RGB_565");
         return;
     }
