@@ -5,7 +5,10 @@
 #include <android/log.h>
 #include <pthread.h>
 #include <unistd.h>
+#include <android/bitmap.h>
 
+#include "../bbb/stackblur.h"   // 在第一步中创建的.h头文件，下面可以调用里面的方法
+#include "../bbb/stackblur.c"
 
 #include "test.cpp"
 
@@ -110,4 +113,44 @@ Java_com_major_demo_MainActivity_runThread(JNIEnv *env, jobject instance) {
 //    pthread_join(tid, NULL);
 
     LOGW("end cpp");
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_major_demo_MainActivity_blurBitmap(JNIEnv *env, jclass obj, jobject bitmapIn, jint r) {
+
+    AndroidBitmapInfo infoIn;
+    void *pixels;
+
+    AndroidBitmap_getInfo(env, bitmapIn, &infoIn);
+
+    // 获取bitmap的信息
+    if (AndroidBitmap_getInfo(env, bitmapIn, &infoIn) != ANDROID_BITMAP_RESULT_SUCCESS) {
+        LOGD("AndroidBitmap_getInfo failed!");
+        return;
+    }
+    // 检测bitmap是不是这两种格式，因为算法中只有对这两种图片会做处理
+    if (infoIn.format != ANDROID_BITMAP_FORMAT_RGBA_8888 &&
+        infoIn.format != ANDROID_BITMAP_FORMAT_RGB_565) {
+        LOGD("Only support ANDROID_BITMAP_FORMAT_RGBA_8888 and ANDROID_BITMAP_FORMAT_RGB_565");
+        return;
+    }
+    // 锁定图片
+    if (AndroidBitmap_lockPixels(env, bitmapIn, &pixels) != ANDROID_BITMAP_RESULT_SUCCESS) {
+        LOGD("AndroidBitmap_lockPixels failed!");
+        return;
+    }
+
+    // 得到宽高
+    int h = infoIn.height;
+    int w = infoIn.width;
+    if (infoIn.format == ANDROID_BITMAP_FORMAT_RGBA_8888) {
+        // 调用stackblur.c中的blur_ARGB_8888()或blur_RGB_565()
+        pixels = blur_ARGB_8888((int *) pixels, w, h, r);
+    } else if (infoIn.format == ANDROID_BITMAP_FORMAT_RGB_565) {
+        pixels = blur_RGB_565((short *) pixels, w, h, r);
+    }
+    // 对应上面的AndroidBitmap_lockPixels（）
+    AndroidBitmap_unlockPixels(env, bitmapIn);
+
 }

@@ -9,7 +9,8 @@ message("==##CMAKE_SOURCE_DIR", ${CMAKE_SOURCE_DIR})
 
 add_library(native-lib SHARED
         aaa/native-lib.cpp
-        aaa/test.cpp)
+        aaa/test.cpp
+        bbb/stackblur.c bbb/stackblur.h)
 
 find_library(log-lib log)
-target_link_libraries(native-lib ${log-lib})
+target_link_libraries(native-lib jnigraphics ${log-lib})
