@@ -128,6 +128,7 @@ Java_com_major_demo_MainActivity_blurBitmap(JNIEnv *env, jclass obj, jobject bit
         return;
     }
     // 检测bitmap是不是这两种格式，因为算法中只有对这两种图片会做处理
+    LOGD("format %d", infoIn.format);
     if (infoIn.format != ANDROID_BITMAP_FORMAT_RGBA_8888 && infoIn.format != ANDROID_BITMAP_FORMAT_RGB_565) {
         LOGD("Only support ANDROID_BITMAP_FORMAT_RGBA_8888 and ANDROID_BITMAP_FORMAT_RGB_565");
         return;
