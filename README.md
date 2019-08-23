@@ -12,15 +12,12 @@
 08-09 13:53:10.460 140-140/? I/DEBUG:     #07  pc 0000ee50  /system/lib/libc.so (pthread_exit+80)
 08-09 13:53:10.460 140-140/? I/DEBUG:     #08  pc 0000929d  /data/app-lib/com.major.demo-2/libnative-lib.so (Java_com_major_demo_MainActivity_runThread+120)
 ```
-2. 在发生崩溃的 so 库打开终端，如上面日志 libnative-lib.so
-   发生崩溃，打开终端到该位置
-   `..\NativeDemo\app\src\main\jniLibs\armeabi-v7a`
+2. 在发生崩溃的 so 库打开终端，如上面日志 libnative-lib.so发生崩溃，打开终端到该位置 `..\NativeDemo\app\src\main\jniLibs\armeabi-v7a`
+    addr2line.exe 工具位置`..\sdk\ndk-bundle\toolchains\arm-linux-androideabi-4.9\prebuilt\windows-x86_64\bin\arm-linux-androideabi-addr2line.exe`
 
-addr2line.exe 工具位置
-`..\sdk\ndk-bundle\toolchains\arm-linux-androideabi-4.9\prebuilt\windows-x86_64\bin\arm-linux-androideabi-addr2line.exe`
-
-3. 获取日志中崩溃地址`0000929d`，执行命令 `addr2line.exe -C -f -e 
-   .\libnative-lib.so 0000929d` 得到结果如下
+3. 获取日志中崩溃地址`0000929d`，执行命令 
+    `addr2line.exe -C -f -e .\libnative-lib.so 0000929d` 
+    得到结果如下
 ```
 posix_run(void*)
 C:\Users\Administrator\Desktop\NativeDemo\app\src\main\cpp\aaa/native-lib.cpp:83

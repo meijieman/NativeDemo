@@ -12,6 +12,8 @@
 
 #include "test.cpp"
 
+#include "HttpConnect.h"
+
 // 定义输出的TAG
 #define LOG_TAG "log_native"
 #define LOGV(...) __android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, __VA_ARGS__)
@@ -73,13 +75,12 @@ Java_com_major_demo_MainActivity_log(JNIEnv *env, jobject instance) {
     short int a = 0;
 
 
-    
 }
 
 void *posix_run(void *arg) {
     LOGI("runing...");
 //    int i = 0;
-    for(int i = 0; i < 10; i++){
+    for (int i = 0; i < 10; i++) {
         sleep(1);
         LOGI("once %d", i);
     }
@@ -129,7 +130,8 @@ Java_com_major_demo_MainActivity_blurBitmap(JNIEnv *env, jclass obj, jobject bit
     }
     // 检测bitmap是不是这两种格式，因为算法中只有对这两种图片会做处理
     LOGD("format %d", infoIn.format);
-    if (infoIn.format != ANDROID_BITMAP_FORMAT_RGBA_8888 && infoIn.format != ANDROID_BITMAP_FORMAT_RGB_565) {
+    if (infoIn.format != ANDROID_BITMAP_FORMAT_RGBA_8888 &&
+        infoIn.format != ANDROID_BITMAP_FORMAT_RGB_565) {
         LOGD("Only support ANDROID_BITMAP_FORMAT_RGBA_8888 and ANDROID_BITMAP_FORMAT_RGB_565");
         return;
     }
@@ -150,5 +152,122 @@ Java_com_major_demo_MainActivity_blurBitmap(JNIEnv *env, jclass obj, jobject bit
     }
     // 对应上面的AndroidBitmap_lockPixels（）
     AndroidBitmap_unlockPixels(env, bitmapIn);
+
+}
+
+void test_find();
+
+void test_split();
+
+void test_trim();
+
+void test_cast();
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_major_demo_MainActivity_http(JNIEnv *env, jobject thiz) {
+
+    HttpConnect *http = new HttpConnect();
+//    http->getData("www.baidu.com", "/", "id=liukang&pw=123");
+    // http://api.wangshuwen.com/ip2Location?ip=113.102.166.83
+    http->getData("api.wangshuwen.com", "/ip2Location", "ip=113.102.166.83");
+
+//    http->postData("127.0.0.1", "/login", "id=liukang&pw=123");
+
+//    test_find();
+//    test_split();
+//    test_trim();
+//    test_cast();
+}
+
+void test_find() {
+    // find函数返回类型 size_type
+    string s("1a2b3c4d5e6f7jkg8h9i1a2b3c4d5e6f7g8ha9i");
+    string flag;
+    string::size_type position;
+    //find 函数 返回jk 在s 中的下标位置
+    position = s.find("jk");
+    //如果没找到，返回一个特别的标志c++中用npos表示，我这里npos取值是4294967295，
+    if (position != string::npos) {
+        LOGD("position is : %d\n", position);
+        LOGW("子串 %s", s.substr(position, s.size()).c_str());
+    } else {
+        LOGD("Not found the flag\n");
+    }
+}
+
+void test_split() {
+    char ip_str[] = "192.168.1.250";
+    char *p = ip_str;
+    char *ip_arr[4];
+    char *s = strsep(&p, ".");
+    int i = 0;
+    while (s) {
+        ip_arr[i] = s;
+        s = strsep(&p, ".");
+        i++;
+
+
+        LOGI("%s\n", s);
+    }
+
+    for (i = 0; i < 4; i++)
+        LOGD("%s\n", ip_arr[i]);
+}
+
+/**
+ * 去掉 string 前后的空格
+ * @return
+ */
+std::string &trim(std::string &);
+
+void test_trim() {
+    string hw = "  adaf ";
+    LOGI("[%s]", hw.c_str());
+    trim(hw);
+    LOGI("trim [%s]", hw.c_str());
+}
+
+std::string &trim(std::string &s) {
+    if (s.empty()) {
+        return s;
+    }
+
+    s.erase(0, s.find_first_not_of(' '));
+    s.erase(s.find_last_not_of(' ') + 1);
+    return s;
+}
+
+// string char* char[] 相互转
+void test_cast() {
+    // string -> char *
+    string s1 = "abcdeg";
+    const char *k = s1.c_str();
+    const char *t = s1.data();
+    LOGD("%s%s", k, t);
+
+    // string -> char*
+    string s2 = "abcdefg";
+    unsigned int len = s2.length();
+    char *data = (char *) malloc((len + 1) * sizeof(char));
+    s2.copy(data, len, 0);
+    data[len] = '\0';
+    LOGD("data %s", data);
+
+    // string -> char[]
+    string pp = "dagah";
+    char p2[pp.length() + 1];
+    int i;
+    for (i = 0; i < pp.length(); i++)
+        p2[i] = pp[i];
+
+    p2[i] = '\0';
+    LOGD("p2 %s ", p2);
+
+
+    // char * -> string
+    char *p = "adghrtyh";
+    string s = p;
+    LOGD("s %s ", s.c_str());
 
 }

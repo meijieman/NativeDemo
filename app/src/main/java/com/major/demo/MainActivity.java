@@ -46,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
             image.setBackground(new BitmapDrawable(bitmap));
 
         });
+
+        findViewById(R.id.btn_http).setOnClickListener(v -> {
+
+            http();
+
+        });
     }
 
     /**
@@ -62,4 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
     // 参数r为对bitmap虚化的程度范围
     static native void blurBitmap(Object bitmap, int r);
+
+    public native void http();
 }

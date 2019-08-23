@@ -10,6 +10,7 @@ message("==##CMAKE_SOURCE_DIR", ${CMAKE_SOURCE_DIR})
 add_library(native-lib SHARED
         aaa/native-lib.cpp
         aaa/test.cpp
+        aaa/HttpConnect.cpp aaa/HttpConnect.h
         bbb/stackblur.c bbb/stackblur.h)
 
 find_library(log-lib log)
