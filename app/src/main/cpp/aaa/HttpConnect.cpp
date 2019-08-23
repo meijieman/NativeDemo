@@ -105,9 +105,11 @@ void parse_resp(const std::string resp) {
     LOGI("获取到的pos %d", pos);
 }
 
+bool startWith(std::string str, std::string match);
+
 void parse_resp2(char src[]) {
     char *buff = src;
-    char *p[10];
+    char *p[20]; // 大小小了会导致崩溃
     int i = 0;
     while ((p[i] = strtok(buff, "\r\n")) != NULL) {
         i++;
@@ -115,9 +117,18 @@ void parse_resp2(char src[]) {
     }
     for (int j = 0; j < i; ++j) {
         LOGI("parse_resp2 %s", p[j]);
+        std::string s = p[j];
+        if (startWith(s, "HTTP/")) {
+            LOGD("返回头 %s", p[j]);
+        } else if (startWith(s, "{")) {
+            LOGD("返回内容头 %s", p[j]);
+        }
     }
 }
 
+bool startWith(const std::string str, const std::string match){
+    return str.find(match) == 0;
+}
 
 void HttpConnect::postData(std::string host, std::string path, std::string post_content) {
     //POST请求方式

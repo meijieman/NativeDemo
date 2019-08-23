@@ -163,6 +163,8 @@ void test_trim();
 
 void test_cast();
 
+void test_strncmp();
+
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_major_demo_MainActivity_http(JNIEnv *env, jobject thiz) {
@@ -170,7 +172,7 @@ Java_com_major_demo_MainActivity_http(JNIEnv *env, jobject thiz) {
     HttpConnect *http = new HttpConnect();
 //    http->getData("www.baidu.com", "/", "id=liukang&pw=123");
     // http://api.wangshuwen.com/ip2Location?ip=113.102.166.83
-    http->getData("api.wangshuwen.com", "/ip2Location", "ip=113.102.166.83");
+//    http->getData("api.wangshuwen.com", "/ip2Location", "ip=113.102.166.83");
 
 //    http->postData("127.0.0.1", "/login", "id=liukang&pw=123");
 
@@ -178,6 +180,9 @@ Java_com_major_demo_MainActivity_http(JNIEnv *env, jobject thiz) {
 //    test_split();
 //    test_trim();
 //    test_cast();
+    test_strncmp();
+
+
 }
 
 void test_find() {
@@ -270,4 +275,33 @@ void test_cast() {
     string s = p;
     LOGD("s %s ", s.c_str());
 
+}
+
+bool startWith2(char *str, char *match);
+
+void test_strncmp() {
+    char *p = "HTTP/1.1 200 OK";
+    char *match = "HTTP/";
+
+    if (startWith2(p, match) ) {
+        LOGD("返回头 %s", p);
+    } else {
+        LOGD("不匹配");
+    }
+}
+
+bool startWith2(char *str, char *match) {
+    if (std::strncmp(str, match, sizeof(match)) == 0) {
+        return true;
+    }
+
+    return false;
+}
+
+bool startWith3(char *str, char *match) {
+    if (std::strncmp(str, match, strlen(match)) == 0) {
+        return true;
+    }
+
+    return false;
 }
