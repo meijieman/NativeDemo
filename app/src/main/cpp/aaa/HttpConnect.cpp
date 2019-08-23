@@ -42,6 +42,7 @@ HttpConnect::~HttpConnect() {
 }
 
 void parse_resp(std::string resp);
+
 void parse_resp2(char src[]);
 
 void HttpConnect::socketHttp(std::string host, std::string request) {
@@ -93,16 +94,7 @@ void HttpConnect::socketHttp(std::string host, std::string request) {
 
     buf[offset] = 0;
     std::cout << buf << std::endl;
-    LOGI("响应结果 %s", buf);
-
-    std::string src_str = buf;
-    auto pos = src_str.find("{");
-    if (pos != std::string::npos) {
-        std::string json = src_str.substr(pos, src_str.size());
-        LOGW("解析后\n %s", json.c_str());
-    } else {
-        LOGE("not found json");
-    }
+    LOGI("响应结果\n %s", buf);
 
 //    parser_resp(buf);
     parse_resp2(buf);
@@ -114,15 +106,16 @@ void parse_resp(const std::string resp) {
 }
 
 void parse_resp2(char src[]) {
-    {
-        std::string s = strtok(src, "\r\n");
-        LOGI("parse_resp2 %s", s.c_str());
+    char *buff = src;
+    char *p[10];
+    int i = 0;
+    while ((p[i] = strtok(buff, "\r\n")) != NULL) {
+        i++;
+        buff = NULL;
     }
-    {
-        std::string s = strtok(src, "\r\n");
-        LOGI("parse_resp2 %s", s.c_str());
+    for (int j = 0; j < i; ++j) {
+        LOGI("parse_resp2 %s", p[j]);
     }
-
 }
 
 
