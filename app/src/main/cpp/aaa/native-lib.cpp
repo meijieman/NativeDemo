@@ -277,31 +277,19 @@ void test_cast() {
 
 }
 
-bool startWith2(char *str, char *match);
+bool startWith(string str, string match);
 
 void test_strncmp() {
-    char *p = "HTTP/1.1 200 OK";
-    char *match = "HTTP/";
+    string p = "HTTP/1.1 200 OK";
+    string match = "HTTP/";
 
-    if (startWith2(p, match) ) {
+    if (startWith(p, match)) {
         LOGD("返回头 %s", p);
     } else {
         LOGD("不匹配");
     }
 }
 
-bool startWith2(char *str, char *match) {
-    if (std::strncmp(str, match, sizeof(match)) == 0) {
-        return true;
-    }
-
-    return false;
-}
-
-bool startWith3(char *str, char *match) {
-    if (std::strncmp(str, match, strlen(match)) == 0) {
-        return true;
-    }
-
-    return false;
+bool startWith(string str, string match) {
+    return strncmp(str.c_str(), match.c_str(), match.length()) == 0;
 }

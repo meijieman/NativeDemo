@@ -126,8 +126,8 @@ void parse_resp2(char src[]) {
     }
 }
 
-bool startWith(const std::string str, const std::string match){
-    return str.find(match) == 0;
+bool startWith(std::string str, std::string match) {
+    return strncmp(str.c_str(), match.c_str(), match.length()) == 0;
 }
 
 void HttpConnect::postData(std::string host, std::string path, std::string post_content) {
