@@ -2,9 +2,7 @@
 // Created by Administrator on 2019/8/23.
 //
 
-#include <jni.h>
 #include <string>
-#include <string.h>
 
 #include <filesystem>
 #include <netdb.h>

@@ -54,6 +54,7 @@ Java_com_major_demo_MainActivity_log(JNIEnv *env, jobject instance) {
     Stud stud;
     stud.setAge(22);
     stud.setName("major");
+    stud.set_content("mei");
     stud.getAge();
 //
     stud.printStd();
