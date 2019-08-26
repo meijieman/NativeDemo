@@ -277,19 +277,19 @@ void test_cast() {
 
 }
 
-bool startWith(string str, string match);
+static bool startWith(string str, string match);
 
 void test_strncmp() {
     string p = "HTTP/1.1 200 OK";
     string match = "HTTP/";
 
     if (startWith(p, match)) {
-        LOGD("返回头 %s", p);
+        LOGD("返回头 %s", p.c_str());
     } else {
         LOGD("不匹配");
     }
 }
 
-bool startWith(string str, string match) {
+static bool startWith(string str, string match) {
     return strncmp(str.c_str(), match.c_str(), match.length()) == 0;
 }
