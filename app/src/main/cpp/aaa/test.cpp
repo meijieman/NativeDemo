@@ -11,6 +11,7 @@ class Stud {
 private:
     int age;
     char name[NAME_LEN];
+    std::string content;
 public:
     int getAge() {
         return age;
@@ -22,6 +23,10 @@ public:
 
     void printStd() {
         LOGW("=========age %d, name %s", age, name);
+    }
+
+    void set_content(std::string _content){
+        content = _content;
     }
 
     void setName(char _name[]) {
