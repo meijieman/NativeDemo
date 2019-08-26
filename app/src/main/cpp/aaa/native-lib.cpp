@@ -1,8 +1,6 @@
-#include <jni.h>
 #include <string>
 
 //{sdk-path}/ndk-bundle/sysroot/usr/include/android
-#include <android/log.h>
 #include <pthread.h>
 #include <unistd.h>
 #include <android/bitmap.h>
@@ -11,16 +9,9 @@
 #include "../bbb/stackblur.c"
 
 #include "test.cpp"
+#include "../log.h"
 
 #include "HttpConnect.h"
-
-// 定义输出的TAG
-#define LOG_TAG "log_native"
-#define LOGV(...) __android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, __VA_ARGS__)
-#define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
-#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
-#define LOGW(...) __android_log_print(ANDROID_LOG_WARN, LOG_TAG, __VA_ARGS__)
-#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 
 using namespace std;
 
@@ -155,6 +146,18 @@ Java_com_major_demo_MainActivity_blurBitmap(JNIEnv *env, jclass obj, jobject bit
 
 }
 
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_major_demo_MainActivity_http(JNIEnv *env, jobject thiz) {
+
+    HttpConnect *http = new HttpConnect();
+//    http->getData("www.baidu.com", "/", "id=liukang&pw=123");
+    // http://api.wangshuwen.com/ip2Location?ip=113.102.166.83
+    http->getData("api.wangshuwen.com", "/ip2Location", "ip=113.102.166.83");
+
+//    http->postData("127.0.0.1", "/login", "id=liukang&pw=123");
+}
+
 void test_find();
 
 void test_split();
@@ -167,22 +170,13 @@ void test_strncmp();
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_major_demo_MainActivity_http(JNIEnv *env, jobject thiz) {
-
-    HttpConnect *http = new HttpConnect();
-//    http->getData("www.baidu.com", "/", "id=liukang&pw=123");
-    // http://api.wangshuwen.com/ip2Location?ip=113.102.166.83
-//    http->getData("api.wangshuwen.com", "/ip2Location", "ip=113.102.166.83");
-
-//    http->postData("127.0.0.1", "/login", "id=liukang&pw=123");
+Java_com_major_demo_MainActivity_test(JNIEnv *env, jobject thiz) {
 
 //    test_find();
 //    test_split();
 //    test_trim();
 //    test_cast();
     test_strncmp();
-
-
 }
 
 void test_find() {
@@ -284,7 +278,7 @@ void test_strncmp() {
     string match = "HTTP/";
 
     if (startWith(p, match)) {
-        LOGD("返回头 %s", p.c_str());
+        LOGD("匹配");
     } else {
         LOGD("不匹配");
     }

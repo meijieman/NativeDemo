@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
             http();
 
         });
+        findViewById(R.id.btn_test).setOnClickListener(v -> {
+            test();
+        });
     }
 
     /**
@@ -70,4 +73,6 @@ public class MainActivity extends AppCompatActivity {
     static native void blurBitmap(Object bitmap, int r);
 
     public native void http();
+
+    public native void test();
 }
