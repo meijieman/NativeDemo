@@ -11,7 +11,8 @@ add_library(native-lib SHARED
         aaa/native-lib.cpp
         aaa/test.cpp
         aaa/HttpConnect.cpp aaa/HttpConnect.h
-        bbb/stackblur.c bbb/stackblur.h)
+        bbb/stackblur.c bbb/stackblur.h
+        ccc/test.cpp)
 
 find_library(log-lib log)
 target_link_libraries(native-lib jnigraphics ${log-lib})
