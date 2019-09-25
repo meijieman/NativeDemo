@@ -5,22 +5,23 @@ android {
 
     defaultConfig {
         applicationId "com.major.ffmpeg"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
         externalNativeBuild {
             cmake {
                 cppFlags ""
+                // 编译自己的so库支持的cpu架构
+                abiFilters "armeabi-v7a" // , "arm64-v8a"
             }
         }
 
         ndk{
-            moduleName "native-lib"
-            abiFilters "armeabi-v7a", "x86"
+//            moduleName "ffmpeg"
+            // 最终输出的apk中，将会包含选择的ABI
+            abiFilters "armeabi-v7a" // , "x86"
         }
     }
 

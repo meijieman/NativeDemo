@@ -3,6 +3,7 @@ package com.major.ffmpeg;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -14,6 +15,8 @@ import android.view.View;
  * Date: 2019/9/25 9:32
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private static final String TAG = "log_ma";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btn_1:
                 FFMPEGHelper.init();
+                String ver = FFMPEGHelper.getVer();
+                Log.i(TAG, "ver " + ver);
 
                 break;
             case R.id.btn_2:

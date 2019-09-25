@@ -15,4 +15,6 @@ public class FFMPEGHelper {
 
     public static native void init();
 
+    public static native String getVer();
+
 }
