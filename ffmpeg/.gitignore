@@ -1,4 +1,4 @@
 /build
-/ffmpeg/out
+/ffmpeg/jniLibs
 *.iml
 .idea

@@ -53,7 +53,7 @@ function build_android
 NDK=/home/major/ffmpeg/android-ndk-r17c #填写自己ndk的解压路径
 
 #armv7-a
-API=26
+API=19
 ARCH=arm
 CPU=armv7-a
 PREFIX=$(pwd)/android/$CPU
