@@ -4,14 +4,11 @@
 
 #include "log.h"
 
-extern "C" {
-#include "libavcodec/avcodec.h"
-#include "libavutil/avutil.h"
-}
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#include "libavcodec/avcodec.h"
 
 JNIEXPORT void JNICALL
 Java_com_major_ffmpeg_FFMPEGHelper_init(JNIEnv *env, jclass clazz) {

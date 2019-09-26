@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * Desc: TODO
@@ -23,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         findViewById(R.id.btn_1).setOnClickListener(this);
         findViewById(R.id.btn_2).setOnClickListener(this);
         findViewById(R.id.btn_3).setOnClickListener(this);
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 FFMPEGHelper.init();
                 String ver = FFMPEGHelper.getVer();
                 Log.i(TAG, "ver " + ver);
+                Toast.makeText(MainActivity.this, "version " + ver, Toast.LENGTH_SHORT).show();
 
                 break;
             case R.id.btn_2:
