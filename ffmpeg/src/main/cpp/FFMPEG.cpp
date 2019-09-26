@@ -3,7 +3,11 @@
 //
 
 #include "log.h"
+
+extern "C" {
 #include "libavcodec/avcodec.h"
+#include "libavutil/avutil.h"
+}
 
 #ifdef __cplusplus
 extern "C" {
@@ -17,8 +21,8 @@ Java_com_major_ffmpeg_FFMPEGHelper_init(JNIEnv *env, jclass clazz) {
 
 JNIEXPORT jstring JNICALL
 Java_com_major_ffmpeg_FFMPEGHelper_getVer(JNIEnv *env, jclass clazz) {
-    const char *ver = "hello"; // av_version_info();
-//    const char *ver = av_version_info();
+//    const char *ver = "hello"; // av_version_info();
+    const char *ver = av_version_info();
     LOGI("%s", ver);
     jstring pJstring = env->NewStringUTF(ver);
 
