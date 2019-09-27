@@ -3,6 +3,11 @@ FFmpeg 4.1.3
 Ubuntu 18.04
 Android Studio 3.4.1
 
+需要安装 make
+```
+sudo apt install make
+```
+
 1. 打开 Ubuntu 在~目录创建 ffmpeg，进入该目录
 ```
 sudo su
