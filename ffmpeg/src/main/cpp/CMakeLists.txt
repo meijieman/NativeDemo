@@ -1,6 +1,8 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
+add_definitions(-DOS_ANDROID)
+
 #设置生成的so动态库最后输出的路径
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/../../../jniLibs/${ANDROID_ABI})
 
@@ -34,7 +36,7 @@ target_link_libraries(
         # avfilter avformat avcodec avutil swresample swscale
         # 也可以使用下面 -Wl 的方式
         -Wl,--start-group
-        avcodec avfilter avformat avutil swresample swscale
+        avcodec.a avfilter.a avformat.a avutil.a swresample.a swscale.a
         -Wl,--end-group
 
         ${log-lib})

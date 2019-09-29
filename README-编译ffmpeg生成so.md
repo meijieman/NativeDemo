@@ -82,7 +82,17 @@ chmod 777 build_arm.sh
 
 
 
+sh 多行注释
+:<<!
+要注释的内容
+！
 
+
+---
+* 最简单的基于FFmpeg的移动端例子：Android HelloWorld
+https://blog.csdn.net/leixiaohua1020/article/details/47008825
+
+* https://github.com/bravobit/FFmpeg-Android
 
 
 

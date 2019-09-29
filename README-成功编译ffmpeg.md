@@ -67,7 +67,7 @@ SYSROOT=$NDK/platforms/android-$API/arch-$ARCH
 CROSS_PREFIX=$TOOLCHAIN/bin/arm-linux-androideabi-
 
 build_android
-
+c
 ```
 4. 执行脚本
 ```
