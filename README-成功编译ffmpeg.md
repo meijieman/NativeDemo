@@ -82,3 +82,5 @@ chmod 777 build_android.sh
 
 ## 参考文档
 *[FFmpeg 4.1.3 + Ubuntu 18.04 + Android Studio 3.4.1编译](https://blog.csdn.net/wuppa/article/details/91879902)
+*参考编译脚本 [在ubuntu18.4平台上编译FFmpeg-3.4 for Android](https://blog.csdn.net/long_24k_os/article/details/80542089)
+*[Ubuntu18.04下编译FFmpeg for Android](https://blog.csdn.net/n_fly/article/details/102951930)
