@@ -5,8 +5,10 @@ android {
 
     defaultConfig {
         applicationId "com.major.ffmpeg"
-        minSdkVersion 19
-        targetSdkVersion 28
+        // error:undefined reference to ‘atof’
+        // 出现这个错误的原因的ndk中platforms android-21以前这些函数是内联函数，但是在android-21开始变成了普通函数
+        minSdkVersion 21
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
 

@@ -28,6 +28,11 @@ add_library(ffmpeg SHARED
 
 find_library(log-lib log)
 
+# ANativeWindow 需要
+find_library(android-lib android)
+
+find_library(z-lib z)
+
 target_link_libraries(
         ffmpeg
 
@@ -36,7 +41,10 @@ target_link_libraries(
         # avfilter avformat avcodec avutil swresample swscale
         # 也可以使用下面 -Wl 的方式
         -Wl,--start-group
-        avcodec.a avfilter.a avformat.a avutil.a swresample.a swscale.a
+        avcodec avfilter avformat avutil swresample swscale
         -Wl,--end-group
 
-        ${log-lib})
+        ${log-lib}
+        ${android-lib}
+        ${z-lib}
+)

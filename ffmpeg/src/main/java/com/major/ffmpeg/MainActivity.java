@@ -41,6 +41,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.btn_2:
+                String input = "/sdcard/langrenqingge.mp3";
+                String output = "/sdcard/lang.pcm";
+                int rst = FFMPEGHelper.decodeAudio(input, output);
+                Log.i(TAG, "rst " + rst);
+
 
                 break;
             case R.id.btn_3:
