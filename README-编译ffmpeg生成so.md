@@ -88,6 +88,10 @@ sh 多行注释
 ！
 
 
+vim 调到指定行
+:n
+
+
 ---
 * 最简单的基于FFmpeg的移动端例子：Android HelloWorld
 https://blog.csdn.net/leixiaohua1020/article/details/47008825
