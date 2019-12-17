@@ -44,6 +44,9 @@ target_link_libraries(
         avcodec avfilter avformat avutil swresample swscale
         -Wl,--end-group
 
+#        -llog -lm -lz
+#        -llzma
+
         ${log-lib}
         ${android-lib}
         ${z-lib}

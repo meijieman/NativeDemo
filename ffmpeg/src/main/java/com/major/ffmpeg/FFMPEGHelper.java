@@ -17,6 +17,8 @@ public class FFMPEGHelper {
 
     public static native String getVer();
 
+    public static native int add(int a, int b);
+
     /**
      * 音频解码
      *

@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.btn_3:
-
+                Toast.makeText(MainActivity.this, "" + FFMPEGHelper.add(2, 5), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_4:
 

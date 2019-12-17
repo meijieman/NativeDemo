@@ -30,6 +30,16 @@ Java_com_major_ffmpeg_FFMPEGHelper_getVer(JNIEnv *env, jclass clazz) {
     return pJstring;
 }
 
+JNIEXPORT jint JNICALL
+Java_com_major_ffmpeg_FFMPEGHelper_add(JNIEnv *env, jclass clazz, jint a, jint b) {
+    jint i = a + b;
+    LOGV("%d + %d = %d", a, b, i);
+
+    const char *conf = avcodec_configuration();
+    LOGV("conf %s", conf);
+
+    return i;
+}
 
 JNIEXPORT jint JNICALL
 Java_com_major_ffmpeg_FFMPEGHelper_decodeAudio(JNIEnv *env, jclass clazz, jstring input_,
